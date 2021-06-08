@@ -1,11 +1,33 @@
 const express = require('express');
 
 const router = express.Router(); 
+const Article = require('../models/Article');
 
-router.get('/', (req, res) => {
-    res.json({id: 1, title: "Cool v neck tee", 
-    description: "Cool light blue vneck tee for use everywhere you",
-    image: "https://cdn.shopify.com/s/files/1/0312/6537/products/N3200_Lt-Blue_F_1024x1024.jpg?v=1571269062"})
+//Get all articles
+router.get('/', async (req, res) => {
+    try {
+        const articles = await Article.find();
+        res.json(articles);
+    } catch (error) {
+        res.json({message: error});
+    }
+});
+
+//Create an article 
+router.post('/', async (req, res) => {
+    const article = new Article({
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        image: req.body.image
+    });
+
+    try {
+        const submitedArticle = await article.save();
+        res.json(submitedArticle);    
+    } catch (error) {
+        res.json({message: error});
+    }
 });
 
 module.exports = router;

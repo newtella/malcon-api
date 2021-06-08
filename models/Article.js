@@ -10,7 +10,7 @@ const articleSchema = mongoose.Schema({
         required: true
     },
     price: {
-        type: Decimal,
+        type: mongoose.Types.Decimal128,
         required: true
     },
     image: {
