@@ -59,6 +59,16 @@ router.patch('/article/:id', async (req, res) => {
     } catch (error) {
         res.json(error.message);
     }
-})
+});
+
+//Delete an article by ID
+router.delete('/article/:id', async(req, res) => {
+    try {
+        const article = await Article.deleteOne({_id: req.params.id});
+        res.json({message: "El articulo ha sido eliminado correctamente"});
+    } catch (error) {
+        res.json(error.message);
+    }
+});
 
 module.exports = router;
