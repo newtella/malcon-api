@@ -30,6 +30,7 @@ router.post('/', async (req, res) => {
     }
 });
 
+//Read an Article by ID
 router.get('/article/:id', async (req, res) => {
     try {
         const article = await Article.findById(req.params.id);
@@ -38,5 +39,26 @@ router.get('/article/:id', async (req, res) => {
         res.json({message: error.message});
     }
 });
+
+//Update an Article by ID
+router.patch('/article/:id', async (req, res) => {
+    const article = {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        image: req.body.image,
+        date: Date.now()
+    };
+
+    try {
+        const updatedArticle = await Article.updateOne(
+            { _id: req.params.id}, 
+            { $set: article}
+        );
+        res.json(updatedArticle);
+    } catch (error) {
+        res.json(error.message);
+    }
+})
 
 module.exports = router;
