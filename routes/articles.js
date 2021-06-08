@@ -7,7 +7,7 @@ const Article = require('../models/Article');
 router.get('/', async (req, res) => {
     try {
         const articles = await Article.find();
-        res.json(articles);
+        res.json({results: articles});
     } catch (error) {
         res.json({message: error});
     }
