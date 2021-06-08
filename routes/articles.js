@@ -30,4 +30,13 @@ router.post('/', async (req, res) => {
     }
 });
 
+router.get('/article/:id', async (req, res) => {
+    try {
+        const article = await Article.findById(req.params.id);
+        res.json(article);
+    } catch (error) {
+        res.json({message: error.message});
+    }
+});
+
 module.exports = router;
