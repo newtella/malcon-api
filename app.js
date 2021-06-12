@@ -11,9 +11,12 @@ app.use(cors());
 app.use(express.json());
 
 //Import routes
+const authRoutes = require('./routes/auth');
 const articleRoutes = require('./routes/articles');
 
+
 //routes
+app.use('/auth', authRoutes);
 app.use('/articles', articleRoutes );
 
 //database connection
