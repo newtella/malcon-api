@@ -2,6 +2,7 @@ const router = require('express').Router();
 const User = require('../models/User');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { registerValidation, loginValidation } = require('../validation');
 
 //Login
@@ -26,8 +27,15 @@ router.post('/login', async(req, res) => {
             { message: "Correo o contrasena incorrecta" }
         )
     }
-    //logged!
-    res.status(200).json({message: "Inicio de sesion correcto"});
+
+    //Create the token
+    const token = jwt.sign({_id: user._id}, process.env.TOKEN);
+    res.header('auth-token', token).status(200).json(
+        {
+            message: "Inicio de sesion correcto",
+            token: token
+        }
+    );
 });
 
 //Register

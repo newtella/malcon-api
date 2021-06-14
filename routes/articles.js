@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router(); 
 const Article = require('../models/Article');
+const verify = require('../routes/verifyToken');
 
 //Get all articles
 router.get('/', async (req, res) => {
